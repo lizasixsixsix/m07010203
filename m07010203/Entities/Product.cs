@@ -18,8 +18,18 @@ namespace m07010203.Entities
         [Column("SupplierID")]
         public int SupplierId { get; set; }
 
+        [Association(ThisKey = nameof(SupplierId),
+                     OtherKey = nameof(SupplierId),
+                     CanBeNull = true)]
+        public Supplier Supplier { get; set; }
+
         [Column("CategoryID")]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
+
+        [Association(ThisKey = nameof(CategoryId),
+                     OtherKey = nameof(CategoryId),
+                     CanBeNull = true)]
+        public Category Category { get; set; }
 
         [Column("QuantityPerUnit")]
         public string QuantityPerUnit { get; set; }
