@@ -16,6 +16,12 @@ namespace m07010203.Tests
             this.nw = new NorthwindDB();
         }
 
+        [TestCleanup]
+        public void Cleanup()
+        {
+            this.nw.Dispose();
+        }
+
         [TestMethod]
         public void ProductListWithCategoryAndSupplier()
         {

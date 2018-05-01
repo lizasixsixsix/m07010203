@@ -1,5 +1,6 @@
-﻿using m07010203.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using m07010203.Entities;
 
 namespace m07010203.Tests
 {
@@ -7,11 +8,12 @@ namespace m07010203.Tests
     public class MappingTests
     {
         [TestMethod]
-        public void MappingSucceeeded()
+        public void MappingSucceeded()
         {
-            var nw = new NorthwindDB();
-
-            Assert.AreEqual(typeof(Category), nw.Categories.ElementType);
+            using (var nw = new NorthwindDB())
+            {
+                Assert.AreEqual(typeof(Category), nw.Categories.ElementType);
+            }
         }
     }
 }
