@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,12 +28,12 @@ namespace m07010203.Tests
                 })
                 .ToList();
 
-            Assert.IsTrue(prodInfo.Count() > 0,
-                             prodInfo
-                                 .Select(i => i.name + " "
-                                              + i.category + " "
-                                              + i.supplier)
-                                 .Aggregate((a, b) => a + "\n" + b));
+            Assert.IsTrue(prodInfo.Count() > 0);
+
+            Console.WriteLine(prodInfo.Select(p => p.name + "\t"
+                                                   + p.category + "\t"
+                                                   + p.supplier)
+                                      .Aggregate((a, b) => a + "\n" + b));
         }
 
         [TestMethod]
@@ -46,11 +47,32 @@ namespace m07010203.Tests
                 })
                 .ToList();
 
-            Assert.IsNotNull(emplTerr.Count() > 0,
-                             emplTerr
-                                 .Select(i => i.name + " "
-                                              + i.territory)
-                                 .Aggregate((a, b) => a + "\n" + b));
+            Assert.IsNotNull(emplTerr.Count() > 0);
+
+            Console.WriteLine(emplTerr.Select(e => e.name + "\t"
+                                                   + e.territory)
+                                      .Aggregate((a, b) => a + "\n" + b));
+        }
+
+        [TestMethod]
+        public void EmployeeAmountPerRegion()
+        {
+            var emplAmount = nw.Region.Select(
+                r => new
+                {
+                    region = r.RegionDescription,
+                    amount = r.Territories
+                        .SelectMany(t => t.EmployeeTerritories)
+                            .SelectMany(e => e.Employees)
+                                .Count()
+                })
+                .ToList();
+
+            Assert.IsNotNull(emplAmount.Count() > 0);
+
+            Console.WriteLine(emplAmount.Select(r => r.region + "\t"
+                                                     + r.amount)
+                                        .Aggregate((a, b) => a + "\n" + b));
         }
     }
 }

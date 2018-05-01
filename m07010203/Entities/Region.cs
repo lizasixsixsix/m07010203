@@ -1,4 +1,6 @@
-﻿using LinqToDB.Mapping;
+﻿using System.Collections.Generic;
+
+using LinqToDB.Mapping;
 
 namespace m07010203.Entities
 {
@@ -11,5 +13,10 @@ namespace m07010203.Entities
 
         [Column("RegionDescription")]
         public string RegionDescription { get; set; }
+
+        [Association(ThisKey = nameof(RegionId),
+                     OtherKey = nameof(RegionId),
+                     CanBeNull = true)]
+        public IEnumerable<Territory> Territories { get; set; }
     }
 }
