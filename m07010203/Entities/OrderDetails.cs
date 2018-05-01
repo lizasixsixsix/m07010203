@@ -13,6 +13,11 @@ namespace m07010203.Entities
         [Column("ProductID")]
         public int ProductId { get; set; }
 
+        [Association(ThisKey = nameof(ProductId),
+                     OtherKey = nameof(ProductId),
+                     CanBeNull = true)]
+        public Product Product { get; set; }
+
         [Column("UnitPrice")]
         public decimal UnitPrice { get; set; }
 

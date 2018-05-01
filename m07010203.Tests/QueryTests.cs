@@ -74,5 +74,27 @@ namespace m07010203.Tests
                                                      + r.amount)
                                         .Aggregate((a, b) => a + "\n" + b));
         }
+
+        [TestMethod]
+        public void EmployeeSuppliers()
+        {
+            var emplSupps = nw.Employees.Select(
+                e => new
+                {
+                    name = e.FirstName + " " + e.LastName,
+                    suppliers = e.Orders
+                        .SelectMany(o => o.OrderDetails)
+                            .Select(d => d.Product)
+                                .Select(d => d.Supplier.ContactName)
+                })
+                .ToList();
+
+            Assert.IsNotNull(emplSupps.Count() > 0);
+
+            Console.WriteLine(emplSupps
+                .Select(r => r.name + "\n"
+                             + r.suppliers.Aggregate((a, b) => a + "\t" + b))
+                .Aggregate((a, b) => a + "\n\n" + b));
+        }
     }
 }

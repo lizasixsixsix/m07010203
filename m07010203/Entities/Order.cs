@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using LinqToDB.Mapping;
 
 namespace m07010203.Entities
@@ -10,6 +10,11 @@ namespace m07010203.Entities
         [PrimaryKey, Identity]
         [Column("OrderID")]
         public int OrderId { get; set; }
+
+        [Association(ThisKey = nameof(OrderId),
+                     OtherKey = nameof(OrderId),
+                     CanBeNull = true)]
+        public IEnumerable<OrderDetails> OrderDetails { get; set; }
 
         [Column("CustomerID")]
         public string CustomerId { get; set; }
