@@ -9,6 +9,11 @@ namespace m07010203.Entities
         [Column("EmployeeID")]
         public int EmployeeId { get; set; }
 
+        [Association(ThisKey = nameof(EmployeeId),
+                     OtherKey = nameof(EmployeeId),
+                     CanBeNull = true)]
+        public EmployeeTerritory EmployeeTerritory { get; set; }
+
         [Column("LastName")]
         public string LastName { get; set; }
 

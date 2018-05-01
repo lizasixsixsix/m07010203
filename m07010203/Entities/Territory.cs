@@ -2,7 +2,7 @@
 
 namespace m07010203.Entities
 {
-    [Table("[Northwind].[Suppliers]")]
+    [Table("[Northwind].[Territories]")]
     public class Territory
     {
         [PrimaryKey, Identity]
